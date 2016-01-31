@@ -43,7 +43,6 @@ proc transform_norm_to_seq*(self: var KissFFT, fin: openArray[Complex]): seq[Com
   for i in result.mitems():
     i.r *= self.nfft_rsqrt
     i.i *= self.nfft_rsqrt
-  return result
 
 proc toNimComplex*(x: Complex): complex.Complex =
   result.re = x.r
