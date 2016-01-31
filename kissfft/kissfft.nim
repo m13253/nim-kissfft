@@ -16,7 +16,7 @@ proc newKissFFT*(nfft: int, inverse_fft: bool): KissFFT =
   return KissFFT(
     cfg: binding.kiss_fft_alloc(cast[cint](nfft), ord(inverse_fft), nil, nil),
     nfft: nfft,
-    nfft_rsqrt: 1 / math.sqrt(cast[float](nfft))
+    nfft_rsqrt: 1 / math.sqrt(toFloat(nfft))
   )
 
 proc transform*(self: var KissFFT, fin: openArray[Complex], fout: var openArray[Complex]) =
