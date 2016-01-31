@@ -29,7 +29,7 @@ proc transform_to_seq*(self: var KissFFT, fin: openArray[Complex]): seq[Complex]
   assert(len(fin) >= self.nfft)
   assert(self.cfg != nil)
   result = newSeq[Complex](self.nfft)
-  binding.kiss_fft(self.cfg, cast[ptr binding.kiss_fft_cpx](fin), cast[ptr binding.kiss_fft_cpx](result))
+  binding.kiss_fft(self.cfg, cast[ptr binding.kiss_fft_cpx](fin), cast[ptr binding.kiss_fft_cpx](result[0].addr))
 
 proc transform_norm*(self: var KissFFT, fin: openArray[Complex], fout: var openArray[Complex]) =
   self.transform(fin, fout)
