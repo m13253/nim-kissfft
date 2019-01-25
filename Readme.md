@@ -10,11 +10,11 @@ Usage
 import kissfft/kissfft
 
 var
-  kiss_fft = kissfft.newKissFFT(1024, false)
+  kFft = kissfft.newKissFFT(1024, false)
   fin: array[1024, kissfft.Complex]
   fout: array[1024, kissfft.Complex]
 
-kiss_fft.transform(fin, fout)
+kFft.transform(fin, fout)
 ```
 
 You can also use `transform_as_vec` or `transform_norm` if convenient.
