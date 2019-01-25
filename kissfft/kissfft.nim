@@ -1,4 +1,3 @@
-
 import binding
 import complex
 import math
@@ -15,7 +14,7 @@ type
 
 proc newKissFFT*(nfft: int, inverse_fft: bool): KissFFT =
   return KissFFT(
-    cfg: binding.kiss_fft_alloc(cast[cint](nfft), ord(inverse_fft), nil, nil),
+    cfg: binding.kiss_fft_alloc(cast[cint](nfft), ord(inverse_fft).cint, nil, nil),
     nfft: nfft,
     nfft_rsqrt: 1 / math.sqrt(toFloat(nfft))
   )
@@ -44,10 +43,10 @@ proc transform_norm_to_seq*(self: var KissFFT, fin: openArray[Complex]): seq[Com
     i.r *= self.nfft_rsqrt
     i.i *= self.nfft_rsqrt
 
-proc toNimComplex*(x: Complex): complex.Complex =
+proc toNimComplex*(x: Complex): complex.Complex[kiss_fft_scalar] =
   result.re = x.r
   result.im = x.i
 
-proc fromNimComplex*(x: complex.Complex): Complex =
+proc fromNimComplex*(x: complex.Complex[kiss_fft_scalar]): Complex =
   result.r = x.re
   result.i = x.im
