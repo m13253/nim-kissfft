@@ -2,6 +2,11 @@ import binding
 import complex
 import math
 
+when (NimMajor, NimMinor, NimPatch) < (0, 19, 9):
+  type nimComplex = complex.Complex
+else:
+  type nimComplex = complex.Complex[kiss_fft_scalar]
+
 type
   Scalar* = binding.kiss_fft_scalar
 
@@ -43,10 +48,10 @@ proc transform_norm_to_seq*(self: var KissFFT, fin: openArray[Complex]): seq[Com
     i.r *= self.nfft_rsqrt
     i.i *= self.nfft_rsqrt
 
-proc toNimComplex*(x: Complex): complex.Complex[kiss_fft_scalar] =
+proc toNimComplex*(x: Complex): nimComplex =
   result.re = x.r
   result.im = x.i
 
-proc fromNimComplex*(x: complex.Complex[kiss_fft_scalar]): Complex =
+proc fromNimComplex*(x: nimComplex): Complex =
   result.r = x.re
   result.i = x.im
